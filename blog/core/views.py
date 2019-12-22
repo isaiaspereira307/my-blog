@@ -29,17 +29,3 @@ def page_topic(request, topico):
 def about(request):
     return render(request, 'core/about.html')
 
-'''
-class SaoFranciscoList(ListView):
-    def get(self, request, *args, **kwargs):
-        posts_list = CasaSaoFrancisco.objects.all()
-        paginator = Paginator(posts_list, 5)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
-        search = request.GET.get('search')
-        if search:
-            posts = CasaSaoFrancisco.objects.filter(nome__icontains=search)
-
-        context = {'posts':posts}
-        return render(request, 'core/listas/listasaofrancisco.html', context)  
-'''
