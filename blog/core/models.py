@@ -5,8 +5,15 @@ from django.urls import reverse_lazy
 from django.utils.timezone import now
 
 class Post(models.Model):
+    TOPICO = (
+        ('Python','Python'),
+        ('JavaScript','JavaScript'),
+        ('Linux','Linux'),
+        ('Hacking','Hacking'),
+        ('BlockChain','BlockChain'),
+    )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    topico = models.CharField(max_length=50)
+    topico = models.CharField(max_length=12, choices=TOPICO)
     subtopico = models.CharField(max_length=100)
     descricao = models.CharField(max_length=300)
     post = models.TextField()

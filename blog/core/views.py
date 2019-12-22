@@ -14,8 +14,23 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 
+class Index(ListView):
+    def get(self, request, *args, **kwargs):
+        posts_list = Post.objects.all()
+        paginator = Paginator(posts_list, 20)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        search = request.GET.get('search')
+        if search:
+            posts = Post.objects.filter(nome__icontains=search)
+        context = {'posts':posts}
+        return render(request, 'core/index.html', context)
+
 def index(request): 
     posts = Post.objects.filter(data_publicacao__lte=timezone.now()).order_by('data_publicacao') 
+    search = request.GET.get('search')
+    if search:
+        posts = Post.objects.filter(subtopico__icontains=search)
     return render(request, 'core/index.html', {'posts': posts})
 
 def post_detail(request, pk):
@@ -29,17 +44,3 @@ def page_topic(request, topico):
 def about(request):
     return render(request, 'core/about.html')
 
-'''
-class SaoFranciscoList(ListView):
-    def get(self, request, *args, **kwargs):
-        posts_list = CasaSaoFrancisco.objects.all()
-        paginator = Paginator(posts_list, 5)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
-        search = request.GET.get('search')
-        if search:
-            posts = CasaSaoFrancisco.objects.filter(nome__icontains=search)
-
-        context = {'posts':posts}
-        return render(request, 'core/listas/listasaofrancisco.html', context)  
-'''
