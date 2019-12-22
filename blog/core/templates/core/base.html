@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>TecBlog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets/css' %}" rel="stylesheet">
+    <link href="{% static 'assets/blog.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-7  d-flex justify-content-end align-items-cente">
+            <a class="blog-header-logo text-dark" href="/">TecBlog</a>
+          </div>
+            <div class="col-sm-4">
+              <form action="." method="GET" class="form-inline">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Buscar">
+                <input type="submit" class="btn btn-primary" style="margin-left: 5px" value="Buscar">
+              </form><br>
+            </div>
+        </div>
+      </header>
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          <a class="p-2 text-muted" href="{% url 'topico' topico='Python' %}">Python</a>
+          <a class="p-2 text-muted" href="{% url 'topico' topico='JavaScript' %}">JavaScript</a>
+          <a class="p-2 text-muted" href="{% url 'topico' topico='Linux' %}">Linux</a>
+          <a class="p-2 text-muted" href="{% url 'topico' topico='Hacking' %}">Hacking</a>
+          <a class="p-2 text-muted" href="{% url 'about' %}">Sobre</a>
+        </nav>
+      </div>
+    </div>
+{% block content %}
+{% endblock %}
+  <footer class="blog-footer">
+    <p>Todos os direitos reservados &copy;</p>
+    <p><a href="https://gitlab.com/hackthebit01">GitLab</a> <a href="#">GitHub</a></p>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="{% static 'assets/jquery-3.2.1.slim.min.js' %}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="{% static 'assets/popper.min.js' %}"></script>
+  <script src="{% static 'assets/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/holder.min.js' %}"></script>
