@@ -1,22 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from core.models import Post
 from django.utils import timezone
-
-
-
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, UpdateView, FormView, View
-from django.http import HttpResponseRedirect
-from core.models import *
-from datetime import datetime
-import json
+from django.views.generic import ListView
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 
 
 class Index(ListView):
     def get(self, request, *args, **kwargs):
-        posts_list = Post.objects.all()
+        posts_list = Post.objects.all().order_by('-data_publicacao')
         paginator = Paginator(posts_list, 20)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
