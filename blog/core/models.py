@@ -29,7 +29,7 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('post_detail', kwargs={'pk': self.pk})
 
-class CasaRenataCourasForm(ModelForm):
+class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = ('__all__')

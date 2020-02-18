@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from core.models import Post
+from core.models import Post, PostForm
 from django.utils import timezone
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView, UpdateView
 from django.core.paginator import Paginator
 
 
@@ -34,4 +34,16 @@ def page_topic(request, topico):
 
 def about(request):
     return render(request, 'core/about.html')
+
+class PageTopic(ListView):
+    def get(self, request, topico, *args, **kwargs):
+        posts_list = Post.objects.filter(data_publicacao__lte=timezone.now(), topico__icontains=topico).order_by('-data_publicacao')
+        paginator = Paginator(posts_list, 20)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        search = request.GET.get('search')
+        if search:
+            posts = Post.objects.filter(subtopico__icontains=search)
+        context = {'posts':posts}
+        return render(request, 'core/index.html', context)
 
